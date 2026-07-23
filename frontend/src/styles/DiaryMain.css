@@ -1,0 +1,159 @@
+  /* 기존 달력 스타일 유지... */
+  .diary-main-content { 
+    flex: 1; 
+    padding: 40px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    box-sizing: border-box; 
+    /* 🌟 화면 밖으로 삐져나가는 모든 가로 콘텐츠를 강제로 숨겨 가로 스크롤 발생을 원천 차단합니다. */
+    overflow-x: hidden;
+    /* 원래 크기 대비 90% 크기로 비율을 유지하며 축소 */
+    zoom: 0.9;
+  }
+
+  .large-calendar-card { 
+    background-color: #ffffff; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%; 
+    max-width: 1100px; 
+    padding: 40px; 
+    border-radius: 16px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+  }
+
+  .large-calendar-header { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 30px; 
+  }
+
+  .large-calendar-header h2 { 
+    margin: 0; 
+    font-family: 'Georgia', serif; 
+    font-style: italic; 
+    font-size: 34px; 
+    color: #333; 
+    min-width: 260px; 
+    text-align: center; 
+  }
+
+  .month-nav-btn { 
+    background: #fff; 
+    border: none; 
+    padding: 10px 16px;
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+  }
+
+  .large-calendar-inner { 
+    background-color: #ffffff;
+    padding: 30px; 
+    border-radius: 8px; 
+  }
+
+  .day-of-week-grid { 
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 18px; 
+    text-align: center; 
+    font-weight: bold; 
+    font-size: 18px; 
+    color: #555; 
+    margin-bottom: 10px; 
+  }
+
+  .large-calendar-grid { 
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 18px; 
+  }
+  
+  .diary-block {
+    background-color: #A1BC98;
+    aspect-ratio: 1.2;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 이모지 중앙 정렬 */
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  .diary-block:hover { 
+    transform: scale(1.05); 
+    background-color: #C8E6BE; 
+  }
+
+  .diary-block.empty-block { 
+    background-color: #c8c8c8; 
+    cursor: default; 
+    pointer-events: none; 
+  }
+  
+  .date-number { 
+  position: absolute; 
+  top: 10px;               /* 상단 여백은 그대로 유지 */
+  
+  /* 🌟 기존 left: 14px를 지우고 아래 두 줄을 넣어줍니다 */
+  left: 50%;               /* 왼쪽에서 정확히 50% 지점으로 이동 */
+  transform: translateX(-50%); /* 숫자 자체 너비의 절반만큼 왼쪽으로 밀어 정중앙 정렬 */
+  
+  font-weight: bold; 
+  font-size: 16px;         
+  color: #333; 
+}
+  .diary-emoji { 
+    font-size: 3.1cqw; 
+    margin-top: 10px; 
+  }
+  
+  /* 🌟 모달 팝업 스타일 */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+  }
+  .modal-content {
+    background-color: white; padding: 25px; border-radius: 10px;
+    width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 15px;
+  }
+  .modal-content h3 { margin: 0; color: #333; }
+  .modal-content textarea { width: 100%; height: 100px; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; resize: none; }
+  
+  .emoji-selector { display: flex; gap: 8px; justify-content: center; }
+  .emoji-btn { font-size: 20px; background: #eee; border: 2px solid transparent; border-radius: 6px; cursor: pointer; padding: 5px; }
+  .emoji-btn.active { background: #ffcc00; border-color: #333; }
+  
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+  .modal-actions button { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+  .cancel-btn { background-color: #ccc; }
+  .save-btn { background-color: #4a82db; color: white; }
+
+  /* 🌟 AI 분석 로딩 중 이모지 선택 영역 불투명 처리 및 마우스 동작 차단 */
+.emoji-selector.disabled-selector {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 🌟 저장 버튼 기본 상태 및 AI 분석 로딩(Disabled) 상태 분리 */
+.save-btn {
+  background-color: #4a82db;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #356fc4;
+}
+
+.save-btn.loading {
+  background-color: #999999 !important;
+  cursor: not-allowed;
+}

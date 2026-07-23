@@ -1,0 +1,432 @@
+/* 전체 레이아웃 구성 */
+.setting-page-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 메인 콘텐츠 영역 */
+.setting-main-content {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+  height: calc(100vh - 50px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* 왼쪽 설정 박스 스타일 */
+.setting-left-box {
+  flex: 1.2;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* 오른쪽 프로필 박스 스타일 */
+.setting-right-box {
+  flex: 0.8;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden; /* 중앙 정렬 집중을 위해 내부 오버플로우 제한 */
+}
+
+/* 각 구획 타이틀 */
+.setting-main-title, .profile-main-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.profile-main-title {
+  margin-bottom: 20px;
+}
+
+/* 개별 섹션 구분선 */
+.setting-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.setting-section-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #4371be;
+}
+
+.setting-divider {
+  border: 0;
+  height: 1px;
+  background-color: #eeeeee;
+  margin: 0;
+}
+
+/* 아이템 배열 구조 */
+.setting-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.setting-item.flex-row {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555555;
+}
+
+/* 라디오 세트 스타일 */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 5px;
+}
+
+.radio-label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #666666;
+}
+
+.radio-label input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #4371be;
+  cursor: pointer;
+}
+
+/* 데이터 백업 안내 글자 */
+.setting-desc {
+  margin: 0;
+  font-size: 13px;
+  color: #888888;
+  line-height: 1.5;
+}
+
+/* 버튼 테마 셋업 */
+.btn-danger {
+  width: fit-content;
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border: 1px solid #fed7d7;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-danger:hover {
+  background-color: #ffe3e3;
+}
+
+.btn-secondary {
+  width: fit-content;
+  background-color: #f1f3f5;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  padding: 10px 18px;ㅇ
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #e9ecef;
+}
+
+.btn-save {
+  margin-top: auto;
+  width: 30%;
+  background-color: #778873;
+  color: #ffffff;
+  border: none;
+  padding: 14px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-save:hover {
+  background-color: #566354;
+}
+
+/* 다크모드 슬라이더 토글 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #778873;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* 가독성 폰트 슬라이더 */
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.slider-desc {
+  font-size: 12px;
+  color: #888888;
+  font-weight: bold;
+}
+
+.range-slider {
+  flex: 1;
+  accent-color: #778873;
+  cursor: pointer;
+  height: 6px;
+}
+
+/* 👤 [오른쪽] 프로필 컨테이너 - ⭐ 세로 중앙 정렬 핵심 부분 */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 내부 요소를 세로축의 정중앙에 정렬 */
+  gap: 35px; /* 프로필 사진, 인풋박스, 하단 버튼간의 간격을 넉넉히 설정 */
+  width: 100%;
+  flex: 1; /* 상단 타이틀 영역을 제외한 나머지 공간을 꽉 채워 중앙 정렬이 제대로 되도록 함 */
+}
+
+/* 아바타 영역 */
+.avatar-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-circle {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-img-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 아바타 호버용 반투명 오버레이 효과 */
+.avatar-hover-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.avatar-circle:hover .avatar-hover-overlay {
+  opacity: 1;
+}
+
+.camera-icon-svg {
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+}
+
+/* HTML file tag 숨기기 */
+.hidden-file-input {
+  display: none !important;
+}
+
+/* 프로필 사진 리셋 버튼 */
+.btn-profile-pic-delete {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.btn-profile-pic-delete:hover {
+  color: #c53030;
+}
+
+/* 프로필 세부 폼 (가운데 정렬을 위해 너비 제한) */
+.profile-details-form {
+  width: 100%;
+  max-width: 300px; /* 이름 입력 상자가 너무 뚱뚱하게 늘어나지 않도록 가이드 */
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888888;
+  text-transform: uppercase;
+  text-align: center; /* 라벨도 가운데 정렬 */
+}
+
+/* 피그마 시안 기준 회색 이름 상자 (가로 바) */
+.name-box-wrapper {
+  background-color: #d9d9d9;
+  border-radius: 4px;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name-input {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  color: #333333;
+  text-align: center;
+  width: 100%;
+  outline: none;
+}
+
+/* 프로필 제어 버튼 액션 그룹 (중앙에서 이쁘게 정돈되도록 세팅) */
+.profile-action-btn-group {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px; /* 이름 상자와 대칭되게 최대 크기 일치 */
+}
+
+.btn-profile-reset {
+  flex: 1;
+  background-color: #f1f3f5;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.btn-profile-reset:hover {
+  background-color: #e9ecef;
+}
+
+.btn-profile-save {
+  flex: 2;
+  background-color: #778873;
+  color: #ffffff;
+  border: none;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.btn-profile-save:hover {
+  background-color: #566354;
+}

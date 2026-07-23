@@ -1,0 +1,73 @@
+/* Header.css */
+
+.TopBox {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    font-family: "JetBrainsMono";
+    background-color: #778873;
+    justify-content: space-between;
+    /* justify-content: space-around; */ /* 로고와 프로필이 양옆으로 넓게 벌어지도록 유지 */
+    /* 🌟 2. 화면 화면 베젤에 너무 칼로 자른 듯 붙는 걸 막기 위해 좌우 여백을 살짝 줍니다. */
+    padding: 0 30px; 
+    
+    box-sizing: border-box; /* 패딩이 전체 너비(100vw)를 넘치지 않게 잡아줍니다. */
+    position: relative; 
+    z-index: 100;
+    position: relative; 
+    z-index: 100;
+}
+
+/* 왼쪽 로고 영역 */
+.homeWithMyGall {
+    display: flex;
+    align-items: center;
+}
+
+.Home1 {
+    display: flex;
+    align-items: center;
+}
+
+.Home2 {
+    display: flex;
+}
+
+.Home3 {
+    display: flex;
+    align-items: center;
+}
+
+.Logo {
+    height: 35px; /* 로고 크기에 맞게 조절 가능 */
+    width: auto;
+}
+
+/* 오른쪽 프로필 영역 */
+.RightBar {
+    display: flex;
+    align-items: center;
+}
+
+.My1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.My2 {
+    display: flex;
+    width: 40px;  /* 어카운트 로고를 감싸는 원형/반응형 영역 */
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.My3 {
+    width: 30px;
+    height: 30px;
+    display: block;
+}

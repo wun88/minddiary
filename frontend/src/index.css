@@ -1,0 +1,28 @@
+/* index.css 파일의 맨 위에 넣어주세요 */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* 아까 설정했던 가로 스크롤 방지 안전장치도 여기 두면 작동합니다! */
+}
+
+/* setting css */
+:root {
+  --global-font-size: 16px; 
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+}
+
+body.dark-mode {
+  --bg-color: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #f5f5f5;
+}
+
+body {
+  font-size: var(--global-font-size) !important;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

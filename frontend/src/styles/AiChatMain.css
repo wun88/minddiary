@@ -1,0 +1,375 @@
+/* =========================================================
+   [1. 전체 레이아웃 고정 및 그리드]
+   ========================================================= */
+.aichat-page-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh; /* 화면 전체 높이 확보 */
+  box-sizing: border-box;
+  overflow: hidden; /* 화면 밖으로 삐져나가는 모든 가로/세로 스크롤 원천 차단 */
+}
+
+/* 🧭 사이드바 디자인 (모노톤 기반) */
+.chat-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background-color: #e5e5e5; /* 회색 톤앤매너 매칭 */
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+/* 사이드바가 접혔을 때의 처리 */
+.aichat-page-container.sidebar-closed .chat-sidebar {
+  margin-left: -280px;
+  transform: translateX(-100%);
+}
+
+/* 🖥️ 우측 메인 영역 래퍼 */
+.chat-main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  position: relative;
+}
+
+
+/* =========================================================
+   [2. 사이드바 내부 요소]
+   ========================================================= */
+.sidebar-header {
+  padding: 16px;
+}
+
+/* 새로운 상담 시작 버튼 */
+.new-chat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 24px;
+  background-color: #555555;
+  color: white;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.new-chat-btn:hover {
+  background-color: #444444;
+}
+
+/* 히스토리 목록 */
+.sidebar-history-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0 12px 16px;
+}
+
+.history-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666666;
+  margin: 16px 0 8px 8px;
+}
+
+.no-history-msg {
+  font-size: 13px;
+  color: #888888;
+  text-align: center;
+  margin-top: 24px;
+}
+
+/* 개별 리스트 아이템 */
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.history-item:hover {
+  background-color: #d1d1d1;
+}
+
+.history-item.active {
+  background-color: #555555;
+  color: white;
+  font-weight: 600;
+}
+
+.chat-icon-bubble {
+  font-size: 14px;
+}
+
+.session-title {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+/* 세션 삭제 버튼 (휴지통) */
+.delete-session-btn {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+  font-size: 12px;
+}
+
+.history-item:hover .delete-session-btn {
+  opacity: 1;
+}
+
+.history-item.active .delete-session-btn {
+  color: #cccccc;
+}
+
+.delete-session-btn:hover {
+  color: #ff3333 !important;
+}
+
+
+/* =========================================================
+   [3. 플로팅 사이드바 토글 버튼]
+   ========================================================= */
+.sidebar-toggle-btn {
+  position: absolute;
+  left: 16px;
+  top: 80px; /* Header 하단 적정 위치 배치 */
+  z-index: 1000;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #333333;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: #f1f1f1;
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   [4. 메인 컨텐츠 및 채팅 공간]
+   ========================================================= */
+.chat-main-content {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  /* 🌟 헤더 높이(50px)와 패딩 공간을 제외한 공간을 강제로 고정하여 늘어남 방지 */
+  height: calc(100vh - 50px); 
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* 자식이 과도하게 커지는 현상 방지 */
+}
+
+/* 🌟 회색 컨테이너 고정 박스 통합 */
+.full-chat-box {
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  padding: 30px;
+  box-sizing: border-box;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  height: 100%;       /* 🌟 처음부터 부모 크기만큼 화면에 꽉 차게 설정 */
+  min-height: 0;     /* 🌟 중요: 자식(채팅창)이 늘어날 때 박스 전체가 늘어나는 버그 방지 */
+}
+
+/* 대화창 내부 스크롤 및 정렬 설정 */
+.chat-messages-display {
+  flex: 1;
+  overflow-y: auto;   /* 내용이 많아지면 박스가 늘어나는 대신 이 안에서만 스크롤바 생성 */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-height: 0;      /* 🌟 내부 스크롤이 정상 작동하도록 스크롤 기준점 마련 */
+}
+
+
+/* =========================================================
+   [5. 대화 말풍선 정렬 및 세부 디자인]
+   ========================================================= */
+.chat-bubble-row { 
+  display: flex; 
+  width: 100%; 
+}
+.chat-bubble-row.user { justify-content: flex-end; } /* 유저는 오른쪽 */
+.chat-bubble-row.ai { justify-content: flex-start; } /* AI는 왼쪽 */
+
+/* 말풍선 공통 디자인 및 크기 제한 통합 */
+.chat-bubble {
+  padding: 12px 16px;
+  border-radius: 14px;
+  /* 🌟 가로 폭 55% 절대 제한 적용 */
+  max-width: 55% !important; 
+  width: fit-content;
+  font-size: 16px !important;
+  line-height: 1.5;
+  word-break: break-all; /* 가로 끝에 도달하면 칼같이 다음 줄로 내림 */
+  white-space: pre-wrap; /* 줄바꿈 기호(\n)를 화면에 그대로 반영 */
+}
+
+.chat-bubble.user { 
+  background-color: #D9D9D9; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  color: #333; 
+}
+
+.chat-bubble.ai { 
+  background-color: #C8E6BE; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  color: #333; 
+}
+
+.chat-bubble.thinking { 
+  background-color: transparent !important;
+  color: #666; 
+  font-style: italic; 
+}
+
+
+/* =========================================================
+   [6. 하단 텍스트 입력 영역]
+   ========================================================= */
+.chat-input-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;  /* 입력창과 대화창 사이 여백 */
+}
+
+.center-input-bar {
+  display: flex;
+  align-items: center;
+  background-color: #dedede;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
+  height: 50px;
+  width: 60%; /* 중앙에 모이도록 너비 조절 */
+  gap: 10px;
+  padding: 5px 30px;
+  box-sizing: border-box;
+}
+
+.center-input-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: rgb(70, 70, 70);
+  outline: none; /* 🌟 클릭 시 생기는 기본 파란 테두리 제거 */
+  font-size: 15px;
+}
+
+.center-input-bar input::placeholder {
+  color: #a7a7a7;
+}
+
+.chat-icon-btn {
+  background: none;
+  border: none;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  transition: opacity 0.2s;
+}
+
+.chat-icon-btn:hover {
+  opacity: 0.8;
+}
+
+.chat-icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   [7. 다크 모드(Dark Mode) 지원 분기 처리]
+   ========================================================= */
+body.dark-mode .chat-sidebar {
+  background-color: #222222;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .history-item {
+  color: #dddddd;
+}
+
+body.dark-mode .history-item:hover {
+  background-color: #333333;
+}
+
+body.dark-mode .history-item.active {
+  background-color: #ffcc00;
+  color: #222222;
+}
+
+body.dark-mode .history-item.active .delete-session-btn {
+  color: #444444;
+}
+
+body.dark-mode .sidebar-toggle-btn {
+  background-color: #333333;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .full-chat-box {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .chat-bubble.ai {
+  background-color: #444444;
+  color: #ffffff;
+}
+
+body.dark-mode .chat-bubble.user {
+  background-color: #ffcc00;
+  color: #111111;
+}
+
+body.dark-mode .chat-bubble.thinking {
+  background-color: transparent !important;
+  color: #999999;
+}

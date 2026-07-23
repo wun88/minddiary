@@ -1,0 +1,306 @@
+/* MainPage.css */
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    height: 100vh; 
+    overflow: hidden;
+}
+  
+.main-content {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+    
+    /* 🌟 이제 여기서 높이를 줄이면 전체가 부드럽게 줄어듭니다! */
+    height: calc(100vh - 50px); /* 화면 높이에서 헤더 높이(50px)를 뺀 만큼만 차지 */
+    min-height: 30px;     
+    box-sizing: border-box;
+    width: 100%;          
+    max-width: 1400px;     
+    margin: 0 auto;       
+    overflow: hidden;           /* 페이지 전체가 세로로 스크롤 되는 현상을 원천 차단 */
+}
+  
+/* 왼쪽 섹션 */
+.left-section {
+    flex: 1;
+    display: flex; 
+    flex-direction: column; /* 🌟 내부 요소 정렬을 위해 추가 */
+    height: 100%;           /* 부모(.main-content) 높이를 100% 다 쓰도록 설정 */
+    min-height: 0;          /* 자식이 늘어날 때 같이 늘어나지 않고 스크롤이 작동하도록 고정 */
+}
+  
+.chat-box {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* border: 5px solid #D9D9D9; */
+    flex: 1;       
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    
+    height: 100%;       /* 🌟 추가: 왼쪽 섹션의 높이를 100% 꽉 채움 */
+    min-height: 0;      /* 🌟 [핵심] 내부 메시지가 아무리 길어져도 이 박스 크기가 절대 늘어나지 않게 고정 */
+}
+  
+.expand-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #959595;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px 8px;
+    z-index: 10; /* 스크롤되는 대화창보다 위에 보이도록 레이어 설정 */
+}
+
+/* 🌟 [추가] 실시간 대화창 내부 스크롤 영역 */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 0;
+}
+
+/* 🌟 [추가] 대기 상태 스타일 */
+.chat-loading {
+    align-self: flex-start;
+    color: #555555;
+    font-size: 13px;
+    padding-left: 5px;
+    font-style: italic;
+}
+  
+.input-bar-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 55px;
+}
+  
+.input-bar {
+    display: flex;
+    align-items: center;
+    background-color: #dedede;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 5px 30px;
+    border-radius: 30px;
+    width: 100%;
+    gap: 10px;
+}
+  
+.input-bar input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: rgb(70, 70, 70);
+    outline: none;
+    font-size: 15px;
+}
+  
+.icon-btn {
+    background: none;
+    border: none;
+    color: rgb(70, 70, 70);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* =======================================================
+   🌟 [수정] JSX 클래스 구조에 맞춰 말풍선 배치 및 줄바꿈 적용
+   ======================================================= */
+/* 1. 대화 한 줄을 차지하는 정렬 컨테이너 */
+.message-bubble {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.message-bubble.ai {
+    justify-content: flex-start; /* 상담사는 왼쪽 정렬 */
+}
+
+.message-bubble.user {
+    justify-content: flex-end;   /* 내담자(나)는 오른쪽 정렬 */
+}
+
+/* 2. 말풍선 가로폭 제한 및 줄바꿈 규칙 */
+.message-bubble span {
+    max-width: 60%;             /* 🌟 [수정] 10% -> 60%로 오타 수정 */
+    width: fit-content;         /* 글자 수가 적을 때는 60%까지 안 늘어나고 글자 크기에 맞춤 */
+    word-break: break-all;      /* 60% 지점에서 영어, 숫자, 한글 가리지 않고 완벽히 줄바꿈 */
+    padding: 10px 14px;         /* 보기 좋은 말풍선 내부 여백 추가 */
+    border-radius: 12px;        /* 둥글둥글한 디자인 적용 */
+    display: inline-block;      /* padding이 정상 작동하도록 인라인 블록화 */
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* 3. 상담사/유저 개별 말풍선 색상 매칭 */
+.message-bubble.ai span {
+    background-color: #C8E6BE;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: #333333;
+}
+
+.message-bubble.user span {
+    background-color: #D9D9D9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: #333333;
+}
+  
+/* =======================================================
+   🌟 오른쪽 섹션 레이아웃 & 높이 동기화
+   ======================================================= */
+
+/* 오른쪽 섹션 */
+.right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;  /* 왼쪽 섹션과 동일하게 부모(.main-content) 높이를 100% 다 씀 */
+    min-height: 0; /* 자식들이 부모 영역 밖으로 넘치는 현상 방지 */
+}
+  
+/* 상단 리스트 스타일 */
+.list-panel {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: 1fr;   
+    gap: 10px;
+    
+    /* 🌟 기존 30%에서 25%로 살짝 줄여 하단 달력이 숨쉴 공간을 더 확보합니다. */
+    height: 25%; 
+    min-height: 100px; 
+    box-sizing: border-box; 
+}
+
+.list-item {
+    height: 100%; 
+    min-height: 0; 
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative; 
+}
+
+.link-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.thumbnail-title-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6); 
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.list-item:hover .thumbnail-title-bar {
+    background: rgba(0, 0, 0, 0.8); 
+}
+
+.item-1 { background-color: #8eff72; }
+.item-2 { background-color: #649eed; }
+.item-3 { background-color: #4a82db; }
+.item-4 { background-color: #4371be; }
+  
+/* 하단 미니 캘린더 판넬 스타일 */
+.mini-calendar-panel {
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* 🌟 [수정] 요소들을 세로 기준으로 중앙 정렬합니다. */
+    justify-content: center; 
+    
+    /* 🌟 [신규] 타이틀과 달력 사이의 간격을 '15px'로 딱 고정합니다. (원하는 만큼 조절 가능!) */
+    gap: 35px; 
+    
+    flex: 1; 
+    min-height: 0; 
+    overflow: hidden; 
+}
+  
+.calendar-title {
+    /* 🌟 [수정] 부모의 gap 속성으로 간격을 제어하므로 마진을 없애 깔끔하게 정렬합니다. */
+    margin: 0; 
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 28px;   
+    color: #333;
+}
+  
+.mini-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    width: 95%;          
+    
+    /* 🌟 [수정] 위아래로 강제 가출시키던 margin-top: auto와 margin-bottom을 지우고 0으로 초기화합니다. */
+    margin: 0; 
+}
+  
+/* 미니 달력 개별 블록 스타일 */
+.calendar-block {
+    background-color: #A1BC98;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+    padding-bottom: 100%; 
+    border-radius: 4px;
+}
+  
+.calendar-block.empty {
+    background-color: #c8c8c8;
+}
+  
+.mini-date-num {
+    font-size: 13px; 
+    font-weight: bold;
+    color: #666;
+    position: absolute;       
+    top: 4px;                         
+    left: 50%;                
+    transform: translateX(-50%); 
+}
+  
+.mini-emoji {
+    font-size: 2.3cqw; 
+    position: absolute;
+    bottom: 4px;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+}
